@@ -1,7 +1,7 @@
 TheWizardOfApi
 ===
 
-Enables a human-wizard to craft each response for a yet unimplemented API.
+Enables a human-wizard to craft each response for a yet unimplemented API. In otherwords: _you_ are a wizard composing responses for incoming requests. Each request to TheWizardOfApi blocks until the wizard, from their throne, composes the response in their browser.
 
 ## Installation
 
