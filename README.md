@@ -1,7 +1,13 @@
 TheWizardOfApi
 ===
 
-Enables a human-wizard to craft each response for a yet unimplemented API. In otherwords: _you_ are a wizard composing responses for incoming requests. Each request to TheWizardOfApi blocks until the wizard, from their throne, composes the response in their browser.
+[Wizard of Oz experiments](http://en.wikipedia.org/wiki/Wizard_of_Oz_experiment) help early on in the [design of novel services](http://www.deaneckles.com/blog/305_aardvarks-use-of-wizard-of-oz-prototyping-to-design-their-social-interfaces/).
+
+From [Usability Net](http://www.usabilitynet.org/tools/wizard.htm)
+
+> The Wizard of Oz technique enables unimplemented technology to be evaluated by using a human to simulate the response of a system.
+
+TheWizardOfApi helps you build Wizard of Oz experiments by providing a human an interface that enables them to create API responses for incoming requests. Keeping with the metaphore, this interface is called the Throne Room. The human operator, or Wizard, observes incoming HTTP requests, and uses a form to create a JSON response document.
 
 ## Installation
 
@@ -15,7 +21,7 @@ And then execute:
 
     $ bundle
 
-Add it to your config.ru file:
+Add this to your config.ru file:
 
     require 'the_wizard_of_api'
     use TheWizardOfApi
@@ -31,7 +37,7 @@ By default, TheWizardOfApi mounts the API request handler at a wild card path st
 * PUT /api/dorothy/home
 * DELETE /api/witches
 
-Each are satisifed by TheWizardOfApi. You can customize the mount point in your Rackup file like so:
+are satisifed by TheWizardOfApi. You can customize the mount point in your Rackup file like so:
 
      use TheWizardOfApi, mount: "/kansas"
 
