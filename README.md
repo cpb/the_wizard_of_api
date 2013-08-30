@@ -33,7 +33,7 @@ Start your config.ru file like this:
 
     require 'bundler/setup'
     require 'the_wizard_of_api'
-    run TheWizardOfApi
+    run TheWizardOfApi.new
 
 ## Usage
 
