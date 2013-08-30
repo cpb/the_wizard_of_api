@@ -3,6 +3,8 @@ require 'rack/test'
 
 require 'the_wizard_of_api'
 
+require 'pry'
+
 describe TheWizardOfApi do
   include Rack::Test::Methods
 
@@ -23,7 +25,9 @@ describe TheWizardOfApi do
     context "GET" do
       subject { get api_mount_point }
 
-      it { should be_ok }
+      it "should stream the response" do
+        expect(subject.status).to eql(-1)
+      end
     end
   end
 end
