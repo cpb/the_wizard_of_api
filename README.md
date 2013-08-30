@@ -11,8 +11,6 @@ TheWizardOfApi helps you build Wizard of Oz experiments by providing a human an 
 
 ## Installation
 
-### In an existing Rack app
-
 Add this line to your application's Gemfile:
 
     gem 'the_wizard_of_api'
@@ -21,10 +19,21 @@ And then execute:
 
     $ bundle
 
+### In an existing Rack app
+
 Add this to your config.ru file:
 
     require 'the_wizard_of_api'
     use TheWizardOfApi
+    # Counts on having a run statement
+
+### As a stand alone Rack app
+
+Start your config.ru file like this:
+
+    require 'bundler/setup'
+    require 'the_wizard_of_api'
+    run TheWizardOfApi
 
 ## Usage
 
