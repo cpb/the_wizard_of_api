@@ -7,6 +7,10 @@ module TheWizardOfApi
         run Proc.new {|env| [200, {"Content-type" => "text/html"}, ["Throne Room"]]}
       end
 
+      map "/api" do
+        run Proc.new {|env| [200, {"Content-type" => "text/html"}, ["Thanks for the Request"]]}
+      end
+
       run app if app
     end.to_app
   end
