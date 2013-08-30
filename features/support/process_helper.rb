@@ -1,6 +1,8 @@
 module ProcessHelper
   def run_process(options = {})
-    run_simple(options.fetch(:start))
+    in_current_dir do
+      system(options.fetch(:start))
+    end
     queue_shutdown(options.fetch(:stop))
   end
 

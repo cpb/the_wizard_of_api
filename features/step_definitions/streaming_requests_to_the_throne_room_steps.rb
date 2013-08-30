@@ -27,7 +27,8 @@ end
 
 When(/^someone else makes a GET request to "(.*?)"$/) do |path|
   last_response = avoid_timing_errors do
-    RestClient.get("localhost:3000#{path}")
+    run_process(start: "curl -s localhost:3000#{path} & echo $! > curl.pid",
+                stop: "kill -9 `cat curl.pid`")
   end
 end
 
