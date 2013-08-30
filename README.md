@@ -1,4 +1,4 @@
-TheWizardOfApi
+TheWizardOfApi ![Build Status](https://travis-ci.org/cpb/the_wizard_of_api.png)
 ===
 
 [Wizard of Oz experiments](http://en.wikipedia.org/wiki/Wizard_of_Oz_experiment) help early on in the [design of novel services](http://www.deaneckles.com/blog/305_aardvarks-use-of-wizard-of-oz-prototyping-to-design-their-social-interfaces/).
