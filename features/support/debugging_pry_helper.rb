@@ -1,7 +1,7 @@
 unless defined?DebuggingPryHelper
   module DebuggingPryHelper
     def pry(beynding)
-      if ENV['DEBUG']
+      if ENV['DEBUG'] && !ENV['TRAVIS']
         begin
           beynding.pry
         rescue NoMethodError => e
