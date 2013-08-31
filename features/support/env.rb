@@ -8,6 +8,7 @@ $: << "./features/support/"
 
 
 require 'thin_helper'
+Before("@thin",&ThinHelper::Before)
 After("@thin",&ThinHelper::After)
 
 require 'debugging_pry_helper'
@@ -15,4 +16,13 @@ After(&DebuggingPryHelper::After)
 
 require 'timing_error_helper'
 
-World(DebuggingPryHelper, ThinHelper, TimingErrorHelper)
+require 'process_helper'
+After(&ProcessHelper::After)
+
+require 'the_wizard_of_api_helper'
+
+World(DebuggingPryHelper,
+      ProcessHelper,
+      ThinHelper,
+      TimingErrorHelper,
+      TheWizardOfApiHelper)
