@@ -18,15 +18,18 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "faye"
   spec.add_dependency "rack"
   spec.add_dependency "thin"
   spec.add_development_dependency "bcat"
   spec.add_development_dependency "capybara"
   spec.add_development_dependency "capybara-webkit"
   spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "rack-test"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rdiscount"
+  spec.add_development_dependency "rest-client"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "travis-lint"
 end
