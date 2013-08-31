@@ -15,7 +15,15 @@ describe TheWizardOfApi do
   context "Throne Room" do
     subject { get "/throne" }
 
-    it { should be_ok }
+    it "should stream the response" do
+      expect(subject.status).to eql(-1)
+    end
+
+    pending "this isn't the actual feature-value i'm looking for" do
+      it "should stream Throne Room first" do
+        expect(subject.body).to include("Throne Room")
+      end
+    end
   end
 
   context "api mount point" do
