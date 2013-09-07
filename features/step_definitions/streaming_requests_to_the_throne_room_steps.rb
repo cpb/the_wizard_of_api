@@ -16,7 +16,7 @@ end
 
 Then(/^I should see:$/) do |string|
   # expect(page).to have_text(string)
-  avoid_timing_errors do
+  avoid_timing_errors(2) do
     check_file_content(log_path("throne").basename,string,true)
   end
 end

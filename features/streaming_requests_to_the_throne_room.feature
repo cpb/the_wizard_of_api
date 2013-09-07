@@ -1,7 +1,7 @@
 Feature: The Wizard sees all requests
   In order to create the illusion of a service
   As The Wizard
-  I want to see all the requests coming to me
+  I want to see all the requests coming to me so that I may respond
 
   Scenario: A GET request to the default mount point
     Given TheWizardOfApi is running with defaults
