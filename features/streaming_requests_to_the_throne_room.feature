@@ -8,10 +8,9 @@ Feature: The Wizard sees all requests
     When someone else makes a GET request to "/api"
     Then I should see:
     """
-    GET / HTTP/1.1
-    Accept: */*; q=0.5, application/xml
-    Accept-Encoding: gzip, deflate
-    User-Agent: Ruby
-    Host: 0.0.0.0:9292
+    GET /api HTTP/1.1
+    Accept: */*
+    User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+    Host: localhost:3000
     """
 

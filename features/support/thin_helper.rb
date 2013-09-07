@@ -15,8 +15,20 @@ module ThinHelper
     thin_pid_path.read.to_i
   end
 
-  def thin(command)
-    "thin -d -P #{thin_pid_path.basename} -l #{thin_log_path.basename} #{command}"
+  def thin(command, options = {})
+    pid_path = options.fetch(:pid,false)
+    log_path = options.fetch(:log,false)
+    rackup   = options.fetch(:rackup,false)
+    run = ["thin -DV"]
+    run << "-d"             if pid_path
+    run << "-P #{pid_path}" if pid_path
+    run << "-l #{log_path}" if log_path
+    run << "-R #{rackup}"   if rackup
+
+    debug(run.join(" "))
+
+    run << command
+    run.join(" ")
   end
 
   Before = lambda do |scenario|

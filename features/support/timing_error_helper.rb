@@ -1,6 +1,6 @@
 module TimingErrorHelper
   def debug(string)
-    if ENV['DEBUG'] == true
+    if ENV['DEBUG']
       if string.length == 1
         $stdout.write(string)
       else
@@ -21,6 +21,11 @@ module TimingErrorHelper
     rescue Capybara::Webkit::InvalidResponseError => e
       if e.message.include?("Unable to load URL")
         debug('!')
+        retry
+      end
+    rescue RSpec::Expectations::ExpectationNotMetError => e
+      if e.message.include?("Diff:")
+        debug('`')
         retry
       end
     rescue => e

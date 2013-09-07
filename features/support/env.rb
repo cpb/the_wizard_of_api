@@ -21,7 +21,10 @@ After(&ProcessHelper::After)
 
 require 'the_wizard_of_api_helper'
 
-World(DebuggingPryHelper,
+require 'curl_helper'
+
+World(CurlHelper,
+      DebuggingPryHelper,
       ProcessHelper,
       ThinHelper,
       TimingErrorHelper,
