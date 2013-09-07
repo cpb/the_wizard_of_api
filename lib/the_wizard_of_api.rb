@@ -38,6 +38,17 @@ module TheWizardOfApi
       end
 
       map "/throne" do
+        map "/response" do
+          run Proc.new { |env|
+            client = env.fetch('faye.client')
+
+            req = Rack::Request.new(env)
+
+            client.publish('/wizard_response',req.params['response'])
+
+            [200,{},[]]
+          }
+        end
         run Proc.new { |env|
 
           body = DeferrableBody.new
@@ -70,14 +81,22 @@ module TheWizardOfApi
 
       map "/api" do
         run Proc.new { |env|
+          body = DeferrableBody.new
+
           client = env.fetch('faye.client')
+
+          EventMachine::next_tick {
+            env['async.callback'].call([200, {'Content-Type' => 'text/plain'}, body])
+            body.call [" " * 1024]
+          }
 
           client.publish('/api', env)
 
           callback = env['async.callback']
 
           client.subscribe('/wizard_response') do |message|
-            callback.call(message)
+            body.call [message]
+            body.succeed
           end
 
           ASYNC

@@ -26,6 +26,12 @@ describe TheWizardOfApi do
     end
   end
 
+  context "Throne Room response" do
+    subject { post "/throne/response", "response"=>"something" }
+
+    it { should be_ok }
+  end
+
   context "api mount point" do
     # default
     let(:api_mount_point) { "/api" }
