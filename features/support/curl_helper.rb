@@ -3,7 +3,7 @@ module CurlHelper
     pid_path = options.fetch(:pid, "#{flag}.pid")
     log_path = options.fetch(:log, "#{flag}.log")
 
-    run = ["curl -sN"]
+    run = ["curl -sN -A 'curl'"]
     run << "-o #{log_path}" if log_path
     run << request
     run << " & echo $! > #{pid_path}" if pid_path

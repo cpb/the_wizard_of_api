@@ -10,7 +10,7 @@ Feature: The Wizard sees all requests
     """
     GET /api HTTP/1.1
     Accept: */*
-    User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+    User-Agent: curl
     Host: localhost:3000
     """
 
