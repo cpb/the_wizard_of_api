@@ -22,15 +22,19 @@ module TheWizardOfApiHelper
       start: thin(:start, pid: thin_pid_path.basename, log: thin_log_path.basename, rackup: "config.ru"),
       stop: thin(:stop, pid: thin_pid_path.basename))
 
-    until thin_log_path.exist? && !thin_log_path.read.empty? && thin_log_path.read.include?("Listening on")
-      debug(".")
-    end
+      wait_for_log_to_contain(thin_log_path,"Listening on")
   end
 
   def dorothy_request(path)
     # Curl or new webkit process, or rest client
     run_process(start: curl("dorothy", "http://localhost:3000#{path}"),
                 stop: cleanup_curl("dorothy"))
+
+    wait_for_log_to_contain(log_path("dorothy"))
+  end
+
+  def wizard_response(data)
+    run_simple("curl -sN --form 'response=#{data}' http://localhost:3000/throne/response")
   end
 
   def the_wizard_takes_their_seat
@@ -39,12 +43,10 @@ module TheWizardOfApiHelper
                               stop: cleanup_curl("throne"))
 
 
-    until throne_log_path.exist? && !throne_log_path.read.empty? && throne_log_path.read.include?("Throne Room")
-      debug(".")
-    end
+    wait_for_log_to_contain(log_path("throne"),"Throne Room")
   end
 
-  def throne_log_path
-    Pathname.new(current_dir) + "throne.log"
+  def log_path(name)
+    Pathname.new(current_dir) + "#{name}.log"
   end
 end

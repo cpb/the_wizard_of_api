@@ -19,6 +19,18 @@ module ProcessHelper
     end
   end
 
+  def wait_for_log_to_contain(path,string=false)
+    until path.exist? && !path.read.empty?
+      debug(".")
+    end
+
+    if string
+      until path.read.include?(string)
+        debug(".")
+      end
+    end
+  end
+
   After = lambda do |scenario|
     stop_services
   end

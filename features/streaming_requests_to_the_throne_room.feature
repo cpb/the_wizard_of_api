@@ -14,3 +14,15 @@ Feature: The Wizard sees all requests
     Host: localhost:3000
     """
 
+  Scenario: A POST request to the Wizard's response mount point
+    Given TheWizardOfApi is running with defaults
+    And someone else makes a GET request to "/api"
+    When I respond with:
+    """
+    {"dorothy": "You may have your wish"}
+    """
+    Then they should see:
+    """
+    {"dorothy": "You may have your wish"}
+    """
+

@@ -17,6 +17,16 @@ end
 Then(/^I should see:$/) do |string|
   # expect(page).to have_text(string)
   avoid_timing_errors do
-    check_file_content("throne.log",string,true)
+    check_file_content(log_path("throne").basename,string,true)
   end
+end
+
+Then(/^they should see:$/) do |string|
+  avoid_timing_errors(2) do
+    check_file_content(log_path("dorothy").basename,string,true)
+  end
+end
+
+When(/^I respond with:$/) do |response|
+  wizard_response(response)
 end
