@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faye", "~> 0.8"
   spec.add_dependency "rack", "~> 1.5"
+  spec.add_dependency "rack-try_static2", "~> 1.1"
   spec.add_dependency "thin", "~> 1.5"
   spec.add_development_dependency "bcat", "~> 0.6"
   spec.add_development_dependency "capybara", "~> 2.1"

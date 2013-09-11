@@ -15,14 +15,10 @@ describe TheWizardOfApi do
   context "Throne Room" do
     subject { get "/throne" }
 
-    it "should stream the response" do
-      expect(subject.status).to eql(-1)
-    end
+    it { expect(subject).to be_ok }
 
-    pending "this isn't the actual feature-value i'm looking for" do
-      it "should stream Throne Room first" do
-        expect(subject.body).to include("Throne Room")
-      end
+    it "should stream Throne Room first" do
+      expect(subject.body).to include("Throne Room")
     end
   end
 
