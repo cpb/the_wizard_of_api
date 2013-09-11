@@ -1,5 +1,6 @@
 require "the_wizard_of_api/version"
 require 'faye'
+require 'rack/try_static'
 
 class DeferrableBody
   include EventMachine::Deferrable
@@ -21,22 +22,6 @@ module TheWizardOfApi
   def self.new(app = nil)
     wizard = Rack::Builder.new do
 
-      self.class.class_eval do
-        def stream_line(body, shown_key, env, http_key)
-          value = env[http_key]
-
-          if value
-            line = ["#{shown_key}:",value].join(" ")
-            puts line
-            body.call [line+"\n"]
-          else
-            puts
-            puts env.inspect
-            puts
-          end
-        end
-      end
-
       map "/throne" do
         map "/response" do
           run Proc.new { |env|
@@ -49,34 +34,11 @@ module TheWizardOfApi
             [200,{},[]]
           }
         end
-        run Proc.new { |env|
 
-          body = DeferrableBody.new
-
-          client = env.fetch('faye.client')
-
-          EventMachine::next_tick {
-            env['async.callback'].call([200, {'Content-Type' => 'text/plain'}, body])
-            body.call [" " * 1024]
-          }
-
-          EventMachine::add_timer(0.5) {
-            body.call ["Throne Room\n"]
-          }
-
-          client.subscribe('/api') do |message|
-            first_line = message.values_at("REQUEST_METHOD","REQUEST_PATH","HTTP_VERSION").join(" ")+"\n"
-
-            puts first_line
-            body.call [first_line]
-
-            stream_line(body, "Accept", message, "HTTP_ACCEPT")
-            stream_line(body, "Accept-Encoding", message, "HTTP_ACCEPT_ENCODING")
-            stream_line(body, "User-Agent", message, "HTTP_USER_AGENT")
-            stream_line(body, "Host", message, "HTTP_HOST")
-          end
-          ASYNC
-        }
+        run Rack::TryStatic.new(app,{
+          root: Pathname.new(__FILE__).dirname.dirname.join("public").to_s,
+          urls: %w[/],
+          try: ['.html', 'index.html', '/index.html']})
       end
 
       map "/api" do

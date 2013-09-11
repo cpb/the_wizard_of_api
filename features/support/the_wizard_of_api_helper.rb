@@ -38,12 +38,7 @@ module TheWizardOfApiHelper
   end
 
   def the_wizard_takes_their_seat
-    # visit throne_url
-    throne_room = run_process(start: curl("throne", throne_url),
-                              stop: cleanup_curl("throne"))
-
-
-    wait_for_log_to_contain(log_path("throne"),"Throne Room")
+    visit throne_url
   end
 
   def log_path(name)
