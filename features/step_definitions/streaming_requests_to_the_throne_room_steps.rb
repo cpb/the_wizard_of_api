@@ -15,7 +15,9 @@ When(/^someone else makes a GET request to "(.*?)"$/) do |path|
 end
 
 Then(/^I should see:$/) do |string|
-  expect(page).to have_text(string)
+  avoid_timing_errors(2) do
+    expect(page).to have_text(string)
+  end
 end
 
 Then(/^they should see:$/) do |string|
