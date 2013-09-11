@@ -14,3 +14,11 @@ Feature: Javascript form for submitting responses
     """
     Always believe in who you are Dorothy and let no one stand in your way.
     """
+    And I should see:
+    """
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    Always believe in who you are Dorothy and let no one stand in your way.
+    """
+
