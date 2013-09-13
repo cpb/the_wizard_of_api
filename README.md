@@ -11,8 +11,9 @@ TheWizardOfApi helps you build Wizard of Oz experiments by providing a human an 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add TheWizardOfApi to your application's Gemfile:
 
+    source 'https://rubygems.org'
     gem 'the_wizard_of_api'
 
 And then execute:
