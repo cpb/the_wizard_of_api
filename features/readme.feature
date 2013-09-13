@@ -15,7 +15,7 @@ Feature: The public interface documented in the README
     run Proc.new {|env| [200, {"Content-type" => "text/html"}, ["Run Rack!"]]}
     """
     And I run `bundle`
-    When I successfully run `thin -d -P thin.pid -l thin.log -R config.ru start`
+    When I successfully run `thin -d -P thin.pid -l thin.log -R config.ru --tag "existing readme" start`
     Then I should see the "Throne Room" at "http://localhost:3000/throne"
 
   @disable-bundler @thin
@@ -31,7 +31,7 @@ Feature: The public interface documented in the README
     run TheWizardOfApi.new
     """
     And I run `bundle`
-    When I successfully run `thin -d -P thin.pid -l thin.log -R config.ru start`
+    When I successfully run `thin -d -P thin.pid -l thin.log -R config.ru --tag "stand alone readme" start`
     Then I should see the "Throne Room" at "http://localhost:3000/throne"
 
 

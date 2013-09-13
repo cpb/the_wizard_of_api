@@ -14,7 +14,16 @@ module ProcessHelper
   def stop_services
     @services.each do |stop_service|
       in_current_dir do
-        system(stop_service + " &", [:out, :err]=>"/dev/null")
+        debug(stop_service)
+
+        result = IO.popen(stop_service + " &", :err => [:child,:out]) do |pipe|
+          debug "Cucumber shutdown pid: #{$$}"
+          debug "popen return (child) pid #{pipe.pid}"
+          if stop_service.include?("thin")
+            sleep(2)
+            Process.kill("INT", pipe.pid)
+          end
+        end
       end
     end
   end

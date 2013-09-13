@@ -19,10 +19,16 @@ module TheWizardOfApiHelper
 
   def start_the_wizard_of_api
     run_process(
-      start: thin(:start, pid: thin_pid_path.basename, log: thin_log_path.basename, rackup: "config.ru"),
+      start: thin(:start,
+                  pid: thin_pid_path.basename,
+                  log: thin_log_path.basename,
+                  rackup: "config.ru",
+                  scenario: current_scenario),
+
       stop: thin(:stop, pid: thin_pid_path.basename))
 
       wait_for_log_to_contain(thin_log_path,"Listening on")
+      sleep(1)
   end
 
   def dorothy_request(path)
@@ -44,4 +50,12 @@ module TheWizardOfApiHelper
   def log_path(name)
     Pathname.new(current_dir) + "#{name}.log"
   end
+
+  def current_scenario
+    @current_scenario
+  end
+
+  Before = lambda do |scenario|
+    @current_scenario = scenario
+  end.freeze
 end

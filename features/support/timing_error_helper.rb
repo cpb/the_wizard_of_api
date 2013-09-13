@@ -1,4 +1,8 @@
 module TimingErrorHelper
+  def debug?
+    !!ENV['DEBUG']
+  end
+
   def debug(string)
     if ENV['DEBUG']
       if string.length == 1
