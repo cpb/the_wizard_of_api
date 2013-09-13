@@ -19,6 +19,9 @@ module TimingErrorHelper
       rescue Errno::ECONNREFUSED => e
         debug(',')
         retry
+      rescue Capybara::Webkit::NodeNotAttachedError => e
+        debug('?')
+        retry
       rescue Capybara::Webkit::InvalidResponseError => e
         if e.message.include?("Unable to load URL")
           debug('!')
@@ -47,4 +50,10 @@ module TimingErrorHelper
       carefully.call
     end
   end
+
+  After = lambda do |scenario|
+    if scenario.failed? && !page.driver.error_messages.empty?
+      warn "Failed with #{page.driver.error_messages.inspect}"
+    end
+  end.freeze
 end

@@ -31,12 +31,27 @@
     });
 
     client.subscribe("/api", function(message){
-        request = [
+        var request = [
           formatFirstLine(message),
           formatLine("Accept", message, "HTTP_ACCEPT"),
           formatLine("User-Agent", message, "HTTP_USER_AGENT"),
           formatLine("Host", message, "HTTP_HOST")
-        ]
+          ];
+
+          if (message["CONTENT_TYPE"]) {
+            request.push(formatLine("Content-Type", message, "CONTENT_TYPE"));
+          }
+
+          if (message["Body"] && message["Body"].length > 0) {
+            request.push("");
+
+            try {
+              var uriDecodedBody = decodeURIComponent(message["Body"]);
+              request.push(uriDecodedBody);
+            } catch(e) {
+              request.push(message["Body"]);
+            }
+          }
 
         document.body.querySelector("form").insertAdjacentHTML("beforeBegin","<pre>"+request.join("\n")+"</pre>")
         });
