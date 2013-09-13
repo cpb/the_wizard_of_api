@@ -52,6 +52,7 @@ module TheWizardOfApi
             body.call [" " * 1024]
           }
 
+          env.merge!("Body" => env["rack.input"].read)
           client.publish('/api', env)
 
           callback = env['async.callback']

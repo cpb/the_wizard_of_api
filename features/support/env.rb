@@ -15,6 +15,7 @@ require 'debugging_pry_helper'
 After(&DebuggingPryHelper::After)
 
 require 'timing_error_helper'
+After(&TimingErrorHelper::After)
 
 require 'process_helper'
 After(&ProcessHelper::After)

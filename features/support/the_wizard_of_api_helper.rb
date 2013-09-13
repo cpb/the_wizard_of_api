@@ -25,9 +25,21 @@ module TheWizardOfApiHelper
       wait_for_log_to_contain(thin_log_path,"Listening on")
   end
 
-  def dorothy_request(path)
+  def dorothy_request(path, method = :get, headers = {})
     # Curl or new webkit process, or rest client
-    run_process(start: curl("dorothy", "http://localhost:3000#{path}"),
+    start_command = case method
+    when :get
+      curl("dorothy", "http://localhost:3000#{path}")
+    when :post
+      body = headers.fetch("Body") { |k| raise ArgumentError, "Sorry, POST requests require a \"Body\" value" }
+      content_type = headers.fetch("Content-Type") { |k| raise ArgumentError, "Sorry, POST request require a \"Content-Type\" value" }
+
+      curl("dorothy", "-X POST -d #{body.inspect} -H \"Content-Type: #{content_type}\" http://localhost:3000#{path}")
+    else
+      pending
+    end
+
+    run_process(start: start_command,
                 stop: cleanup_curl("dorothy"))
 
     wait_for_log_to_contain(log_path("dorothy"))
