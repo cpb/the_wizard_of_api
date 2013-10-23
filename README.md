@@ -27,6 +27,12 @@ Add this to your config.ru file:
     use TheWizardOfApi
     # Counts on having a run statement
 
+##### For Rails:
+
+In the `|config|` block of config/application.rb:
+
+    config.middleware.use TheWizardOfApi
+    
 ### As a stand alone Rack app
 
 Start your config.ru file like this:
