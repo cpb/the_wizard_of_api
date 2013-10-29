@@ -21,6 +21,7 @@ require 'process_helper'
 After(&ProcessHelper::After)
 
 require 'the_wizard_of_api_helper'
+Before(&TheWizardOfApiHelper::Before)
 
 require 'curl_helper'
 

@@ -19,20 +19,26 @@ module ThinHelper
     pid_path = options.fetch(:pid,false)
     log_path = options.fetch(:log,false)
     rackup   = options.fetch(:rackup,false)
+    scenario = options.fetch(:scenario,false)
+
     run = ["thin -DV"]
     run << "-d"             if pid_path
     run << "-P #{pid_path}" if pid_path
     run << "-l #{log_path}" if log_path
     run << "-R #{rackup}"   if rackup
+    run << "--tag #{scenario.name.inspect}" if scenario
+
+    run << command
 
     debug(run.join(" "))
 
-    run << command
     run.join(" ")
   end
 
   Before = lambda do |scenario|
-    queue_shutdown(thin("stop"))
+    queue_shutdown(thin("stop",
+                        pid: thin_pid_path.basename,
+                        log: thin_log_path.basename))
   end
 
   After = lambda do |scenario|

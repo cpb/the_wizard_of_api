@@ -15,13 +15,13 @@ When(/^someone else makes a GET request to "(.*?)"$/) do |path|
 end
 
 Then(/^I should see:$/) do |string|
-  avoid_timing_errors(2) do
+  avoid_timing_errors(3) do
     expect(page).to have_text(string)
   end
 end
 
 Then(/^they should see:$/) do |string|
-  avoid_timing_errors(2) do
+  avoid_timing_errors(3) do
     check_file_content(log_path("dorothy").basename,string,true)
   end
 end
